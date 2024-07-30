@@ -79,7 +79,7 @@ fetchPackage p@{ repo: Remote (URL url), version: Version version } = ExceptT.ru
     CP.Normally 0 -> do
       pure output.stdout
     x -> do
-      ExceptT.throwError $ NixPrefetchGitFailed (show x)
+      ExceptT.throwError $ NixPrefetchGitFailed (url <> ": " <>show x)
 
   result :: NixPrefetchGitResult <- case JSON.readJSON json of
     Right x -> pure x
